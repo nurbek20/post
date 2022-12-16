@@ -1,4 +1,12 @@
-import { ADD_COMMENTS , DELETE_COMMENT} from '../Types';
+import { 
+    ADD_COMMENTS , 
+    DELETE_COMMENT, 
+    GET_POST_COMMENT,
+    SHOW_LOADING,
+    HIDE_LOADING,
+    SHOW_ERROR,
+    CLEAR_ERROR
+} from '../Types';
 
 const initialState = {
     comments: [],
@@ -22,6 +30,38 @@ export const CommentsReducer = (state = initialState, action) => {
             return{
                 ...state,
                 comments:newArr
+            }
+            case GET_POST_COMMENT:{
+                const {data}=action.payload
+                return{
+                    ...state,
+                    comments:data
+                }
+            }
+            case SHOW_LOADING:{
+                return{
+                    ...state,
+                    loading:true
+                }
+            }
+            case HIDE_LOADING:{
+                return{
+                    ...state,
+                    loading:false
+                }
+            }
+            case SHOW_ERROR:{
+                const {error}=action
+                return{
+                    ...state,
+                    error
+                }
+            }
+            case CLEAR_ERROR:{
+                return{
+                    ...state,
+                    error:null
+                }
             }
 
         default:
