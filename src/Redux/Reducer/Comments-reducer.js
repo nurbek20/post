@@ -1,4 +1,4 @@
-import { ADD_COMMENTS } from '../Types';
+import { ADD_COMMENTS , DELETE_COMMENT} from '../Types';
 
 const initialState = {
     comments: [],
@@ -15,6 +15,14 @@ export const CommentsReducer = (state = initialState, action) => {
                 comments: [...state.comments, { title, id }]
             }
         }
+        case DELETE_COMMENT:
+            const {id}=action.payload
+            const newArr =state.comments.filter(elem=>elem.id!==id);
+            console.log("newArr>>",newArr)
+            return{
+                ...state,
+                comments:newArr
+            }
 
         default:
             return state

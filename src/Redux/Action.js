@@ -1,4 +1,4 @@
-import { DECREMENT, INCREMENT, ADD_COMMENTS } from "./Types";
+import { DECREMENT, INCREMENT, ADD_COMMENTS, DELETE_COMMENT } from "./Types";
 
 export const icrement = () => {
     return {
@@ -20,3 +20,9 @@ export const addComments = (title, id) => {
     }
 }
 
+export const deleteComment=(id)=>{
+    return{
+        type:DELETE_COMMENT,
+        payload:{id}
+    }
+}
