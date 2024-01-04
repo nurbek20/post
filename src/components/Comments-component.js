@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import SingleCommentComponent from "./Single-comment-component";
-import uniqid from 'uniqid';
+import uniqid from "uniqid";
 import { addComments } from "../redux/Actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const CommentsComponent = () => {
   const [input, setInput] = useState("");
-  const dispatch=useDispatch()
-  const handleSubmit=(e)=>{
-    e.preventDefault()
-    const id=uniqid()
-    console.log(input,id)
-    dispatch(addComments(input,id))
-    setInput("")
-  }
+  const dispatch = useDispatch();
+  const { comments } = useSelector((state) => state.CommentsReducer);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const id = uniqid();
+    console.log(input, id);
+    dispatch(addComments(input, id));
+    setInput("");
+  };
+  console.log("comments>>>", comments);
 
   return (
     <div className="card-comments">
@@ -25,8 +28,11 @@ const CommentsComponent = () => {
           placeholder="comment"
         />
         <input type="submit" hidden />
-        <SingleCommentComponent />
       </form>
+
+      {comments.map((elem, i) => {
+        return <SingleCommentComponent key={i} {...elem} />;
+      })}
     </div>
   );
 };
