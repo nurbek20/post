@@ -1,5 +1,5 @@
 import React from "react";
-import { increment, } from "../redux/Actions";
+import { increment,decrement } from "../redux/Actions";
 import { useDispatch,useSelector } from "react-redux";
 
 const LikeComponent = () => {
@@ -8,7 +8,7 @@ const LikeComponent = () => {
   return (
     <div className="button-controls">
       <button onClick={()=>dispatch(increment())}> ♥ {likes} </button>
-      <button> 👎 </button>
+      <button onClick={()=>dispatch(decrement())}> 👎 </button>
     </div>
   );
 };

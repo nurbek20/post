@@ -1,16 +1,34 @@
-import React from 'react'
-import SingleCommentComponent from './Single-comment-component'
+import React, { useState } from "react";
+import SingleCommentComponent from "./Single-comment-component";
+import uniqid from 'uniqid';
+import { addComments } from "../redux/Actions";
+import { useDispatch } from "react-redux";
 
 const CommentsComponent = () => {
-  return (
-    <div className='card-comments'>
-        <form className='coments-content'>
-            <input type="text" placeholder='comment' name="" id="" />
-            <input type="submit" hidden />
-            <SingleCommentComponent/>
-        </form>
-    </div>
-  )
-}
+  const [input, setInput] = useState("");
+  const dispatch=useDispatch()
+  const handleSubmit=(e)=>{
+    e.preventDefault()
+    const id=uniqid()
+    console.log(input,id)
+    dispatch(addComments(input,id))
+    setInput("")
+  }
 
-export default CommentsComponent
+  return (
+    <div className="card-comments">
+      <form onSubmit={handleSubmit} className="coments-content">
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          type="text"
+          placeholder="comment"
+        />
+        <input type="submit" hidden />
+        <SingleCommentComponent />
+      </form>
+    </div>
+  );
+};
+
+export default CommentsComponent;
